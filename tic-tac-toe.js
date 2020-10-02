@@ -45,5 +45,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
       }
     }
     // These for loops is for the diagonals
+    if (
+      squareValues[0] !== "" &&
+      squareValues[0] === squareValues[4] &&
+      squareValues[0] === squareValues[8]
+    ) {
+      gameStatus === squareValues[0];
+    }
+    if (
+      squareValues[2] !== "" &&
+      squareValues[2] === squareValues[4] &&
+      squareValues[2] === squareValues[6]
+    ) {
+      gameStatus === squareValues[2];
+    }
+    if (gameStatus !== "") {
+      const announcement = document.getElementById("game-status");
+      announcement.innerHTML = `Winner: ${gameStatus.toUpperCase()}`;
+    }
   };
 });
