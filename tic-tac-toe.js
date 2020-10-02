@@ -28,17 +28,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 
   let checkGameStatus = () => {
+    // This for loop is for rows
     for (let i = 0; i < 9; i += 3) {
-      if (
-        squareValues[i] &&
-        squareValues[i + 1] &&
-        squareValues[i + 2] == squareValues[i]
-      ) {
-        if (gameStatus == "") {
-          gameStatus = squareValues[i].toUpperCase();
+      if (squareValues[i] !== '' &&
+        squareValues[i + 1] == squareValues[i] &&
+        squareValues[i + 2] == squareValues[i]) {
+          gameStatus = squareValues[i];
           console.log(gameStatus);
-        }
+          break;
+          
       }
     }
-  };
+
+    // This for loop is for columns
+    for (let i = 0; i < 3; i += 1) {
+        if (squareValues[i] !== '' &&
+            squareValues[i + 3] == squareValues[i] &&
+             squareValues[i + 6] == squareValues[i]) {
+                gameStatus = squareValues[i];
+                console.log(gameStatus);
+                break;
+        }
+    }
+
+    // These for loops is for the diagonals
+
+  }
 });
