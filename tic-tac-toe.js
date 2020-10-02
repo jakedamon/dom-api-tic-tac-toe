@@ -4,6 +4,7 @@ let gameStatus = "";
 window.addEventListener("DOMContentLoaded", (event) => {
   const board = document.getElementById("tic-tac-toe-board");
   board.addEventListener("click", (event) => {
+    if (gameStatus !== '') return;
     const targetId = event.target.id;
     if (!targetId.startsWith("square-")) return;
     const squareIndex = Number.parseInt(targetId[targetId.length - 1]);
@@ -19,6 +20,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
     checkGameStatus();
   });
+
+  document.getElementById('new-game').addEventListener('click', event => {
+    gameStatus = '';
+    document.getElementById('game-status').innerHTML = '';
+    for (let i = 0; i < 9; i++) {
+      document.getElementById(`square-${i}`).innerHTML = '';
+    }
+    currentPlayerSymbol = 'x';
+    document.getElementById('new-game').disabled = true;
+    squareValues = ['','','','','','','','','']
+  })
+
   let checkGameStatus = () => {
     // This for loop is for rows
     for (let i = 0; i < 9; i += 3) {
@@ -44,6 +57,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
         break;
       }
     }
+    // Checking for a tie
+    let boardIsFilled = true;
+    for(let i = 0; i < 9; i += 1){
+      if (squareValues[i] === ''){
+        boardIsFilled = false;
+        break;
+      }
+    }
+    if (boardIsFilled) {
+      gameStatus = 'None'
+    }
+
     // These for loops is for the diagonals
     if (
       squareValues[0] !== "" &&
@@ -62,6 +87,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
     if (gameStatus !== "") {
       const announcement = document.getElementById("game-status");
       announcement.innerHTML = `Winner: ${gameStatus.toUpperCase()}`;
+      document.getElementById('new-game').disabled = false;
+      document.getElementById('give-up').disabled = true;
     }
   };
+
+  document.getElementById('give-up').addEventListener('click', event => {
+    if (currentPlayerSymbol == 'x') {
+      gameStatus = 'Y';
+    } else {
+      gameStatus = 'X';
+    }
+  })
+
 });
